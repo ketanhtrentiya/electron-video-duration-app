@@ -1,0 +1,31 @@
+<html>
+
+<head></head>
+
+<body>
+    <h1>Video Info</h1>
+    <form>
+        <div>
+            <label>Select a video</label>
+            <input type="file" accept="video/*" />
+        </div>
+        <button type="submit">Get Info</button>
+    </form>
+
+    <h1 id="videoDuration"></h1>
+
+    <!-- JS -->
+    <script>
+        document.querySelector('form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const { path } = document.querySelector('input').files[0];
+            window.electron.submitVideo(path);
+        });
+        
+        window.electron.receiveVideoMetadata((duration) => {
+            document.querySelector('#videoDuration').innerHTML = `Video is ${duration} seconds long.`;
+        });
+    </script>
+</body>
+
+</html>
